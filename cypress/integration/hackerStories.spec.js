@@ -28,7 +28,9 @@ describe('Hacker Stories', () => {
       }).as('getNextStories')
       cy.get('.item').should('have.length', 20)
 
-      cy.contains('More').click()
+      cy.contains('More')
+        .should('be.visible')
+        .click()
 
       cy.wait('@getNextStories')
 
@@ -40,6 +42,7 @@ describe('Hacker Stories', () => {
         `**/search?query=${newTerm}&page=0`
       ).as('getNewTermStories')
       cy.get('#search')
+        .should('be.visible')
         .clear()
         .type(`${newTerm}{enter}`)
 
@@ -54,7 +57,8 @@ describe('Hacker Stories', () => {
       cy.get('.item').should('have.length', 20)
       cy.get('.item')
         .first()
-        .should('contain', initialTerm)
+        .should('be.visible')
+        .and('contain', initialTerm)
       cy.get(`button:contains(${newTerm})`)
         .should('be.visible')
     })
@@ -107,6 +111,7 @@ describe('Hacker Stories', () => {
         it('shows one story less after dimissing the first one', () => {
           cy.get('.button-small')
             .first()
+            .should('be.visible')
             .click()
 
           cy.get('.item').should('have.length', 1)
